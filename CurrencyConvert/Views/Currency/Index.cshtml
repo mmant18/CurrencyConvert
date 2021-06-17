@@ -30,15 +30,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.OrderNum)
             </td>
-            <td>
-                @Html.ActionLink("edit", "EditCurrency", new { id = item.Code }) |
-                @Html.ActionLink("delete", "DeleteCurrency", new { id = item.Code })
-            </td>
         </tr>
     }
 
 </table>
-
 <p>
-    @Html.ActionLink("add currency", "AddCurrency")
+    @Html.ActionLink("დაამატე", "AddCurrency") | @Html.ActionLink("ჩაასწორე", "EditCurrency") | @Html.ActionLink("წაშალე", "DeleteCurrency")
 </p>
+

@@ -13,23 +13,12 @@
 
     <div>
         <hr />
-        <h4>ვალუტის პარამეტრები</h4>
+        <h4>გთხოვთ შეიყვანოთ წასაშლელი ვალუტა</h4>
         
         <div>
-            @Html.DisplayName("ვალუტის კოდი")
-            @Html.DisplayFor(model => model.Code)
+            @Html.LabelFor(model => model.Code, "ვალუტის კოდი")
+            @Html.EditorFor(model => model.Code)
         </div>
-                        
-        <div>
-            @Html.DisplayName("ვალუტის დასახელება")
-            @Html.DisplayFor(model => model.Name)
-        </div>
-                        
-        <div>
-            @Html.DisplayName("ლათინური დასახელება")
-            @Html.DisplayFor(model => model.NameLatin)
-        </div>
-                        
         <div>
             <button type="submit" value="Delete" class="btn btn-default">წაშლა</button>
         </div>

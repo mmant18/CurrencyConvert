@@ -39,11 +39,11 @@ namespace CurrencyConvert.Controllers
         
         
         [HttpPost]
-        public ActionResult AddCurrency(string code, string name, string nameLatin, int orderNum)
+        public ActionResult AddCurrency(string code, string name, string nameLatin, string orderNum)
         {
             var currency = new Currency()
             {
-                Code = code, Name = name, NameLatin = nameLatin, OrderNum = orderNum
+                Code = code, Name = name, NameLatin = nameLatin, OrderNum = Convert.ToInt32(orderNum)
             };
             try
             {
@@ -60,23 +60,20 @@ namespace CurrencyConvert.Controllers
         }
         
         
-        public ActionResult EditCurrency(string id)
+        public ActionResult EditCurrency()
         {
-            var currency = GetCurrencies().Find(curr =>  curr.Code == id);
-            // EditCurrency(currency.Code, currency.Name, currency.NameLatin, currency.OrderNum);
-            // var currencies = GetCurrencies();
-            return View(currency);
+            return View();
         }
         
         [HttpPost]
-        public ActionResult EditCurrency(string code, string name, string nameLatin, int orderNum)
+        public ActionResult EditCurrency(string code, string name, string nameLatin, string orderNum)
         {
             var currency = GetCurrencies().Find(curr =>  curr.Code == code);
             try
             {
                 if (ModelState.IsValid)
                 {
-                    DeleteCurrency(code);
+                    DeleteConfirmed(code);
                     AddCurrency(code, name, nameLatin, orderNum);
                     return RedirectToAction("Index");
                 }
@@ -90,29 +87,28 @@ namespace CurrencyConvert.Controllers
         }
 
         
-        public ActionResult DeleteCurrency(string id)
+        public ActionResult DeleteCurrency()
         {
-            var currency = GetCurrencies().Find(curr => curr.Code == id );
-            return View(currency);
+            return View();
         }
         
         
         [HttpPost, ActionName("DeleteCurrency")]
         public ActionResult DeleteConfirmed(string code)
         {
-            var currencies = UpdateCurrenciesDelete(code);
+            var currency = GetCurrencies().Find(curr =>  curr.Code == code);
             try
-            {
-                if (ModelState.IsValid)
-                {
-                    WriteCurrenciesInFile(currencies);
-                }
+            { 
+                var currencies = UpdateCurrenciesDelete(code);
+                WriteCurrenciesInFile(currencies);
+                return RedirectToAction("Index");
             }
             catch
             {
                 ViewBag.Message = string.Format("Error");
             }
-            return RedirectToAction("Index");
+
+            return View(currency);
         }
 
         
