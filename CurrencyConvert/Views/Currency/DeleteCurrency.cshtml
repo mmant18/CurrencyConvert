@@ -1,18 +1,54 @@
 @model CurrencyConvert.Models.Currency
 
 @{
-    Layout = null;
+    ViewBag.Title = "Delete";
 }
 
-<!DOCTYPE html>
+<h2>ვალუტის გაწერის ფორმა</h2>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <hr />
+        <h4>ვალუტის პარამეტრები</h4>
+        
+        <div>
+            @Html.DisplayName("ვალუტის კოდი")
+            @Html.DisplayFor(model => model.Code)
+        </div>
+                        
+        <div>
+            @Html.DisplayName("ვალუტის დასახელება")
+            @Html.DisplayFor(model => model.Name)
+        </div>
+                        
+        <div>
+            @Html.DisplayName("ლათინური დასახელება")
+            @Html.DisplayFor(model => model.NameLatin)
+        </div>
+                        
+        <div>
+            <button type="submit" value="Delete" class="btn btn-default">წაშლა</button>
+        </div>
+    </div>
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+}
+
 <div>
-      
+    @Html.ActionLink("Back to List", "Index")
 </div>
-</body>
-</html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

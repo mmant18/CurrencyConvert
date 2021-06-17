@@ -90,18 +90,29 @@ namespace CurrencyConvert.Controllers
         }
 
         
-        public ActionResult DeleteCurrency()
+        public ActionResult DeleteCurrency(string id)
         {
-            return View();
+            var currency = GetCurrencies().Find(curr => curr.Code == id );
+            return View(currency);
         }
         
         
-        [HttpPost]
-        public ActionResult DeleteCurrency(string code)
+        [HttpPost, ActionName("DeleteCurrency")]
+        public ActionResult DeleteConfirmed(string code)
         {
             var currencies = UpdateCurrenciesDelete(code);
-            WriteCurrenciesInFile(currencies);
-            return View();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    WriteCurrenciesInFile(currencies);
+                }
+            }
+            catch
+            {
+                ViewBag.Message = string.Format("Error");
+            }
+            return RedirectToAction("Index");
         }
 
         
