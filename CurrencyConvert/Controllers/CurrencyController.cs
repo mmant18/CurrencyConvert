@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
@@ -44,23 +45,48 @@ namespace CurrencyConvert.Controllers
             {
                 Code = code, Name = name, NameLatin = nameLatin, OrderNum = orderNum
             };
-            var currentCurrencies = UpdateCurrenciesAdd(code, name, nameLatin, orderNum.ToString());
-            WriteCurrenciesInFile(currentCurrencies);
+            try
+            {
+                var currentCurrencies = UpdateCurrenciesAdd(code, name, nameLatin, orderNum.ToString());
+                WriteCurrenciesInFile(currentCurrencies);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                ViewBag.Message = string.Format("Error");
+            }
+
             return View(currency);
         }
         
         
-        public ActionResult EditCurrency()
+        public ActionResult EditCurrency(string id)
         {
-            return View();
+            var currency = GetCurrencies().Find(curr =>  curr.Code == id);
+            // EditCurrency(currency.Code, currency.Name, currency.NameLatin, currency.OrderNum);
+            // var currencies = GetCurrencies();
+            return View(currency);
         }
         
         [HttpPost]
         public ActionResult EditCurrency(string code, string name, string nameLatin, int orderNum)
         {
-            DeleteCurrency(code);
-            AddCurrency(code, name, nameLatin, orderNum);
-            return View();
+            var currency = GetCurrencies().Find(curr =>  curr.Code == code);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    DeleteCurrency(code);
+                    AddCurrency(code, name, nameLatin, orderNum);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                ViewBag.Message = string.Format("Error");
+            }
+
+            return View(currency);
         }
 
         

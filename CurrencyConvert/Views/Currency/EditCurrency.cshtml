@@ -1,18 +1,59 @@
 @model CurrencyConvert.Models.Currency
 
 @{
-    Layout = null;
+    ViewBag.Title = "Edit";
 }
 
-<!DOCTYPE html>
+<h2>ვალუტის ჩასწორების ფორმა</h2>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <h4>ვალუტის პარამეტრები</h4>
+
+        <div>
+            @Html.LabelFor(model => model.Code, "ვალუტის კოდი")
+            @Html.EditorFor(model => model.Code, new {htmlAttributes = new {@class = "form-control", required = "required",disabled= "disabled"}})
+        </div>
+                
+        <div>
+            @Html.LabelFor(model => model.Name, "ვალუტის დასახელება")
+            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control", required = "required"}})
+        </div>
+                
+        <div>
+            @Html.LabelFor(model => model.NameLatin, "ლათინური დასახელება")
+            @Html.EditorFor(model => model.NameLatin, new {htmlAttributes = new {@class = "form-control", required = "required"}})
+        </div>
+                
+        <div>
+            @Html.LabelFor(model => model.OrderNum, "პრიორიტეტი სიაში")
+            @Html.EditorFor(model => model.OrderNum, new {htmlAttributes = new {@class = "form-control", @type = "number", @min = "1", @step = "1"}})
+        </div>
+                
+        <div>
+            <button type="submit" value="Create" class="btn btn-default">დამატება</button>
+        </div>
+    </div>
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+}
+
 <div>
-      
+    @Html.ActionLink("Back to List", "Index")
 </div>
-</body>
-</html>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -11,49 +11,32 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div>
         <hr />
         <h4>ვალუტის პარამეტრები</h4>
-
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Code, "ვალუტის კოდი", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*@Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control", required = "required" } })*@
-                @Html.DropDownList("code", new SelectList(ViewBag.data), htmlAttributes: new { @class = "form-control", required = "required" })
-                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-            </div>
+        
+        <div>
+            @Html.LabelFor(model => model.Code, "ვალუტის კოდი")
+            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", required = "required" } })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, "ვალუტის დასახელება", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
+        
+        <div>
+            @Html.LabelFor(model => model.Name, "ვალუტის დასახელება")
+             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NameLatin, "ვალუტის დასახელება ლათინურად", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NameLatin, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                @Html.ValidationMessageFor(model => model.NameLatin, "", new { @class = "text-danger" })
-            </div>
+        
+        <div>
+           @Html.LabelFor(model => model.NameLatin, "ლათინური დასახელება")
+            @Html.EditorFor(model => model.NameLatin, new { htmlAttributes = new { @class = "form-control", required = "required" } })
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderNum, "თანმიმდევრობის ინდექსი", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrderNum, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1", @step="1" } })
-                @Html.ValidationMessageFor(model => model.OrderNum, "", new { @class = "text-danger" })
-            </div>
+        
+        <div>
+            @Html.LabelFor(model => model.OrderNum, "პრიორიტეტი სიაში")
+            @Html.EditorFor(model => model.OrderNum, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1", @step="1" } })
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" value="Create" class="btn btn-default">დამატება</button>
-            </div>
+        
+        <div>
+            <button type="submit" value="Create" class="btn btn-default">დამატება</button>
         </div>
     </div>
 }
