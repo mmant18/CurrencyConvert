@@ -17,22 +17,22 @@
         
         <div>
             @Html.LabelFor(model => model.Id, "კურსის ID")
-            @Html.EditorFor(model => model.Id, new {htmlAttributes = new {@class = "form-control", required = "required"}})
+            @Html.EditorFor(model => model.Id, new {htmlAttributes = new { required = "required"}})
         </div>
         
         <div>
             @Html.LabelFor(model => model.CurrencyCode, "ვალუტის კოდი")
-            @Html.EditorFor(model => model.CurrencyCode, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.EditorFor(model => model.CurrencyCode, new { htmlAttributes = new { required = "required" } })
         </div>
         
         <div>
             @Html.LabelFor(model => model.BuyRate, "ყიდვის კურსი")
-            @Html.EditorFor(model => model.BuyRate, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.EditorFor(model => model.BuyRate, new { htmlAttributes = new { required = "required" } })
         </div>
         
         <div>
             @Html.LabelFor(model => model.SellRate, "გაყიდვის კურსი")
-            @Html.EditorFor(model => model.SellRate, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.EditorFor(model => model.SellRate, new { htmlAttributes = new { required = "required" } })
         </div>
 
         <div>

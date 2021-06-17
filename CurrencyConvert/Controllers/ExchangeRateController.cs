@@ -76,29 +76,53 @@ namespace CurrencyConvert.Controllers
         }
         
         
-        [HttpPost]
-        public ActionResult DeleteExchangeRate(int id)
+        [HttpPost, ActionName("DeleteExchangeRate")]
+        public ActionResult DeleteExchangeRateConfirmed(string code)
         {
-            _curId = GetExchangeRates().Count;
-            _curId -= 1;
-            var rates = UpdateExchangeRateDelete(id);
-            WriteExchangeRatesInFile(rates);
-            return View();
+            var rate = GetExchangeRates().Find(curr =>  curr.CurrencyCode == code);
+            try
+            { 
+                _curId = GetExchangeRates().Count;
+                _curId -= 1;
+                var lines = UpdateExchangeRateDelete(code, rate.Id);
+                WriteExchangeRatesInFile(lines);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                ViewBag.Message = string.Format("Error");
+            }
+
+            return View(rate);
         }
 
         
-        public ActionResult EditExhangeRate()
+        public ActionResult EditExhangeRate(string code)
         {
-            return View();
+            var rate = GetExchangeRates().Find(exchangeRate => exchangeRate.CurrencyCode == code);
+            return View(rate);
         }
         
         
         [HttpPost]
-        public ActionResult EditExhangeRate(int id, string currencyCode, double buyRate, double sellRate)
+        public ActionResult EditExhangeRate(string currencyCode, double buyRate, double sellRate)
         {
-            DeleteExchangeRate(id);
-            AddExchangeRate(currencyCode, buyRate, sellRate);
-            return View();
+            var rate = GetExchangeRates().Find(exchangeRate => exchangeRate.CurrencyCode == currencyCode);
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    DeleteExchangeRateConfirmed(currencyCode);
+                    AddExchangeRate(currencyCode, buyRate, sellRate);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch
+            {
+                ViewBag.Message = string.Format("Error");
+            }
+
+            return View(rate);
         }
 
 
@@ -114,10 +138,10 @@ namespace CurrencyConvert.Controllers
             var exchangeRate = GetExchangeRates().Find(rate => rate.CurrencyCode == currencyCode);
             return exchangeRate.BuyRate;
         }
-        private string[] UpdateExchangeRateDelete(int id)
+        private string[] UpdateExchangeRateDelete(string code, int id)
         {
             var rates = GetExchangeRates();
-            rates = rates.FindAll(rate => rate.Id != id).ToList();
+            rates = rates.FindAll(rate => rate.CurrencyCode != code).ToList();
             var curSize = rates.Count;
             var lines = new string[curSize];
             for (int i = 0; i < curSize; i++)

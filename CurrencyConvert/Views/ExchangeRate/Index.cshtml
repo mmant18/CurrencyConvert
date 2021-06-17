@@ -30,16 +30,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SellRate)
             </td>
-            <td>
-                @Html.ActionLink("edit", "EditExhangeRate", new { id = item.Id }) |
-                @Html.ActionLink("delete", "DeleteExchangeRate", new { id = item.Id })
-            </td>
         </tr>
     }
 
 </table>
 
-
 <p>
-    @Html.ActionLink("add rate", "AddExchangeRate")
+    @Html.ActionLink("დაამატე", "AddExchangeRate") | @Html.ActionLink("ჩაასწორე", "EditExhangeRate") | @Html.ActionLink("წაშალე", "DeleteExchangeRate")
 </p>

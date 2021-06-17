@@ -1,18 +1,51 @@
 @model CurrencyConvert.Models.ExchangeRate
 
 @{
-    Layout = null;
+    ViewBag.Title = "Edit";
 }
 
-<!DOCTYPE html>
+<h2>კურსის ჩასწორების ფორმა</h2>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
-</div>
-</body>
-</html>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <hr />
+        <h4>კურსის პარამეტრები</h4>
+        
+        <div>
+            @Html.LabelFor(model => model.Id, "კურსის ID")
+            @Html.EditorFor(model => model.Id, new {htmlAttributes = new {disable = "disabled"}})
+        </div>
+        
+        <div>
+            @Html.LabelFor(model => model.CurrencyCode, "ვალუტის კოდი")
+            @Html.EditorFor(model => model.CurrencyCode, new { htmlAttributes = new {required = "required" } })
+        </div>
+        
+        <div>
+            @Html.LabelFor(model => model.BuyRate, "ყიდვის კურსი")
+            @Html.EditorFor(model => model.BuyRate, new { htmlAttributes = new { required = "required" } })
+        </div>
+        
+        <div>
+            @Html.LabelFor(model => model.SellRate, "გაყიდვის კურსი")
+            @Html.EditorFor(model => model.SellRate, new { htmlAttributes = new {  required = "required" } })
+        </div>
+
+        <div>
+            <button type="submit" value="Edit" class="btn btn-default">ჩასწორება</button>
+        </div>
+    </div>
+}
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+}
