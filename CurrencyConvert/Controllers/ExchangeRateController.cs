@@ -47,11 +47,26 @@ namespace CurrencyConvert.Controllers
         [HttpPost]
         public ActionResult AddExchangeRate(string currencyCode, double buyRate, double sellRate)
         {
-            _curId = GetExchangeRates().Count;
-            _curId += 1;
-            var currentRates = UpdateExchangeRatesAdd(currencyCode, buyRate.ToString(CultureInfo.CurrentCulture), sellRate.ToString(CultureInfo.CurrentCulture));
-            WriteExchangeRatesInFile(currentRates);
-            return View();
+            try
+            {
+                _curId = GetExchangeRates().Count;
+                _curId += 1;
+                var currentRates = UpdateExchangeRatesAdd(currencyCode, buyRate.ToString(CultureInfo.CurrentCulture),
+                    sellRate.ToString(CultureInfo.CurrentCulture));
+                WriteExchangeRatesInFile(currentRates);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                ViewBag.Message = string.Format("Error");
+            }
+
+            var rate = new ExchangeRate()
+            {
+                Id = _curId, BuyRate = buyRate, SellRate = sellRate, CurrencyCode = currencyCode
+            };
+
+            return View(rate);
         }
 
         
