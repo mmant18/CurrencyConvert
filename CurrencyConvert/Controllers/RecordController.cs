@@ -82,7 +82,8 @@ namespace CurrencyConvert.Controllers
         }
 
 
-        public List<Record> SortDoubtfulRecords()
+        
+        private List<Record> SortDoubtfulRecords()
         {
             var records = GetRecords();
             foreach (var record in records)
@@ -102,7 +103,21 @@ namespace CurrencyConvert.Controllers
         }
 
 
-        public List<Record> SortByDate()
+        public ActionResult ShowSorted()
+        {
+            var list = SortByDate();
+            return View(list);
+        }
+        
+        
+        public ActionResult ShowDoubtful()
+        {
+            var list = SortDoubtfulRecords();
+            return View(list);
+        }
+        
+        
+        private List<Record> SortByDate()
         {
             var records = GetRecords();
             return  records.OrderByDescending(record => record.Date).ToList();

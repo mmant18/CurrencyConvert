@@ -160,6 +160,8 @@
         <Content Include="Views\ExchangeRate\Index.cshtml" />
         <Content Include="Views\Record\AddRecord.cshtml" />
         <Content Include="Views\Record\Index.cshtml" />
+        <Content Include="Views\Record\ShowDoubtful.cshtml" />
+        <Content Include="Views\Record\ShowSorted.cshtml" />
         <Content Include="Web.config" />
         <Content Include="Web.Debug.config">
             <DependentUpon>Web.config</DependentUpon>
