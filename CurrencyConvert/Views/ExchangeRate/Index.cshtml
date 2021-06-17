@@ -1,0 +1,45 @@
+@model System.Collections.Generic.List<CurrencyConvert.Models.ExchangeRate>
+
+@{
+    ViewBag.Title = "კურსების რეესტრი";
+}
+
+<h2>კურსის რეესტრი</h2>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>ვალუტის კოდი</th>
+        <th>ყიდვის კურსი</th>
+        <th>გაყიდვის კურსი</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyRate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellRate)
+            </td>
+            <td>
+                @Html.ActionLink("edit", "EditExhangeRate", new { id = item.Id }) |
+                @Html.ActionLink("delete", "DeleteExchangeRate", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<p>
+    @Html.ActionLink("add rate", "AddExchangeRate")
+</p>

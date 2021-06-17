@@ -1,0 +1,52 @@
+@model System.Collections.Generic.List<CurrencyConvert.Models.Record>
+
+@{
+    ViewBag.Title = "რეპორტები";
+}
+
+<h2>რეპორტები</h2>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>მიღებული ვალუტის კოდი</th>
+        <th>გაცემული ვალუტის კურსი</th>
+        <th>მიღებული თანხა</th>
+        <th>გაცემული თანხა</th>
+        <th>კომენტარი</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrencyOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountOut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+            @*<td>
+                @Html.ActionLink("edit", "EditExhangeRate", new { id = item.Id }) |
+                @Html.ActionLink("delete", "DeleteExchangeRate", new { id = item.Id })
+            </td>*@
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("add record", "AddRecord")
+</p>
